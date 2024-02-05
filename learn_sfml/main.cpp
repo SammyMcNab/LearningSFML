@@ -1,27 +1,25 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 int main()
 {
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(800, 600), "Engine", sf::Style::Close | sf::Style::Titlebar);
-    sf::Texture playerTexture;
-    sf::Sprite playerSprite;
+    sf::CircleShape circle(100.0f);
+    sf::CircleShape triangle(80.f, 3);
+    sf::CircleShape square(80.f, 4);
+    sf::CircleShape octagon(80.f, 8);
 
-    if (playerTexture.loadFromFile("assets/player/Textures/spritesheet.png")) {
-        std::cout << "Player image loaded successfully\n";
-        playerSprite.setTexture(playerTexture);
+    triangle.setFillColor(sf::Color(100, 250, 50));
+    triangle.setOrigin(80.f / 2, 80.f / 2);
+    triangle.setPosition(sf::Vector2f(140, 140));
 
-        //X, Y, WIDTH, HEIGHT
-        int xIndex = 0;
-        int yIndex = 0;
-        playerSprite.setTextureRect(sf::IntRect(xIndex * 32, yIndex * 32,32,32));
-        playerSprite.scale(sf::Vector2f(3, 3));
-    }
-    else {
-        std::cout << "Player image failed to load\n";
-    }
+    square.setFillColor(sf::Color(250, 250, 50));
+    square.setOrigin(80.f / 2, 80.f / 2);
+    square.setPosition(sf::Vector2f(440, 140));
+
+    octagon.setFillColor(sf::Color(0, 255, 255));
+    octagon.setOrigin(80.f / 2, 80.f / 2);
+    octagon.setPosition(sf::Vector2f(650, 140));
+
     // run the program as long as the window is open
     while (window.isOpen())
     {
@@ -34,31 +32,16 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        sf::Vector2f position = playerSprite.getPosition();
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            playerSprite.setPosition(position + sf::Vector2f(0.05,0));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            playerSprite.setPosition(position + sf::Vector2f(-0.05, 0));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            playerSprite.setPosition(position + sf::Vector2f(0, -0.05));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            playerSprite.setPosition(position + sf::Vector2f(0, 0.05));
-        }
-
         //******************** UPDATE SECTION *************************
 
         //******************** DRAW SECTION *************************
         //clearing to red
-        window.clear(sf::Color::Black);
+        window.clear(sf::Color::Red);
 
         //**** ALL DRAWING HAPPENS BETWEEN CLEARING AND DISPLAYING
-        
-        window.draw(playerSprite);
-
+        window.draw(triangle);
+        window.draw(square);
+        window.draw(octagon);
         //display to window
         window.display();
 
